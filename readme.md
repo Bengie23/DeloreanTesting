@@ -1,4 +1,4 @@
- # What is this?
+ # What is DeloreanTesting?
 An extension of the existing MSTEST TestClass and TestMethod attributes, allowing to perform certain operations around the tests.
 The idea is to acquire the next capabilities:
 * Skip tests that might be too heavy, complex or useless for a certain context.
@@ -30,3 +30,5 @@ Allows to skip a test when a certain condition is given.
 
 ### ShouldFail
 Allows a test to pass, when it actually failed.
+
+# Examples
