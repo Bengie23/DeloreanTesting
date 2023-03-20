@@ -32,3 +32,67 @@ Allows to skip a test when a certain condition is given.
 Allows a test to pass, when it actually failed.
 
 # Examples
+**Using the ShouldSkip Attribute**
+```C#
+[DeloreanTestClass]
+    public class ShouldSkipTests
+    {
+        private static bool ShouldSkipDefinitionMethod()
+        {
+            return true;
+        }
+
+        [TestMethod]
+        [ShouldSkip(true)]
+        public void TestMethod1()
+        {
+        }
+
+        [DeloreanTestMethod]
+        [ShouldSkip(nameof(ShouldSkipDefinitionMethod))]
+        public void TestMethod2()
+        {
+
+        }
+    }
+```
+
+**Using the CopernicusTestClass to validate against an AzureDevops WorkItemID**
+```C#
+[CopernicusTestClass("<orgName>", "<PersonalAccessToken>", "<Project>")]
+    public class CopernicusTests
+    {
+        [CopernicusTestMethod(15)]
+        [WorkItemState(15,"Doing")]
+        public void TestMethod1()
+        {
+            //Should Run
+        }
+
+        [CopernicusTestMethod(15)]
+        [WorkItemState(15, "doing")]
+        public void TestMethod2()
+        {
+            //Should Run
+        }
+
+        [CopernicusTestMethod(15)]
+        [WorkItemState(15, "Done")]
+        public void TestMethod3()
+        {
+            //Should NOT Run
+        }
+    }
+```
+**Using the EinsteinTestClass to validate dependencies registration within integration tests**
+```C#
+[EinsteinTestMethod]
+ [DependenciesUnderTest(
+     nameof(WeatherForecastService),
+     nameof(WeatherForecastRepository))]
+ public void TestDependencyRegistration(string[] dependencies)
+ {            
+     Assert.That.DependenciesHaveBeenRegistered(dependencies);
+ }
+```
+More details under the samples folder.
